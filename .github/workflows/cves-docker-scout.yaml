@@ -90,6 +90,6 @@ jobs:
           github-token: '${{ github.token }}'
 
       - name: Upload Docker Scout scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: scout.sarif
