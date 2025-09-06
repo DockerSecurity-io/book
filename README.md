@@ -4,4 +4,4 @@ This is a repository for extra content for the book "Docker and Kubernetes Secur
 
 ## Chapters
 
-- [Chapter 2](chapter02/README.md): Exploring Container Security Tools
+- [Chapter 2](extra/chapter02/README.md): Exploring Container Security Tools
