@@ -1,0 +1,24 @@
+- name: Configure AWS credentials
+  uses: aws-actions/configure-aws-credentials@v1
+  with:
+    role-to-assume: ${{ env.AWS_ROLE }}
+    aws-region: ${{ env.AWS_REGION }}
+
+- name: Login to Amazon ECR
+  id: login-ecr
+  uses: aws-actions/amazon-ecr-login@v1
+
+- name: Log in to the Container registry
+  uses: docker/login-action@v3
+  with:
+    registry: ${{ env.OTHER_REGISTRY }}
+    username: ${{ env.OTHER_USERNAME }}
+    password: ${{ env.OTHER_PASSWORD }}
+
+- name: Build and push
+  uses: docker/build-push-action@v5
+  with:
+    push: true
+    tags: |
+      ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPO }}:${{ env.ECR_TAG }}
+      ${{ env.OTHER_REGISTRY }}/${{ env.OTHER_REPO }}:${{ env.OTHER_TAG }}

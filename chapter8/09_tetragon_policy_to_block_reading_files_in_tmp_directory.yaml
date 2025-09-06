@@ -1,0 +1,24 @@
+apiVersion: cilium.io/v1alpha1
+kind: TracingPolicyNamespaced
+metadata:
+  name: block-tmp-access
+spec:
+  podSelector:
+    matchLabels:
+      app: "dks"
+  kprobes:
+    - call: "fd_install"
+      syscall: false
+      args:
+        - index: 0
+          type: int
+        - index: 1
+          type: file
+      selectors:
+        - matchArgs:
+            - index: 1
+              operator: Prefix
+              values:
+                - "/tmp/"
+          matchActions:
+            - action: Sigkill

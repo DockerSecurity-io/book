@@ -1,0 +1,18 @@
+spec:
+  containers:
+    - name: myapp
+      image: myapp:latest
+      ports:
+        - containerPort: 80
+      livenessProbe:
+        httpGet:
+          path: /healthz
+          port: 80
+        initialDelaySeconds: 5
+        periodSeconds: 10
+      readinessProbe:
+        httpGet:
+          path: /ready
+          port: 80
+        initialDelaySeconds: 5
+        periodSeconds: 10

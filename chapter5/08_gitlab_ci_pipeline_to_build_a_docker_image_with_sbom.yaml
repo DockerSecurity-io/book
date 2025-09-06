@@ -1,0 +1,10 @@
+stages:
+  - build
+  
+build:
+  stage: build
+  image: docker:stable
+  services:
+    - docker:dind
+  script:
+    - docker buildx build --sbom=true -t $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME .

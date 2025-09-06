@@ -1,0 +1,23 @@
+{
+  "defaultAction": "SCMP_ACT_ALLOW",
+  "architectures": [
+    "SCMP_ARCH_X86_64"
+  ],
+  "syscalls": [
+    {
+      "names": [
+        "open",
+        "close",
+        "read",
+        "write"
+      ],
+      "action": "SCMP_ACT_ALLOW"
+    },
+    {
+      "names": [
+        "execve"
+      ],
+      "action": "SCMP_ACT_ERRNO"
+    }
+  ]
+}

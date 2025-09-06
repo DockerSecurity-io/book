@@ -1,0 +1,11 @@
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: NodePort # <-- Change this line
+
+ports:
+  internal:
+    name: "api"
+    number: 3000

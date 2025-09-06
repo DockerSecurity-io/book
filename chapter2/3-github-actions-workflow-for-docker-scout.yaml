@@ -1,0 +1,12 @@
+      - name: Run Docker Scout to extract vulnerabilities from the image
+        uses: docker/scout-action@v1
+        with:
+          command: cves
+          image: '${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}'
+          sarif-file: scout.sarif
+          github-token: '${{ github.token }}'
+
+      - name: Upload Docker Scout scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: scout.sarif

@@ -1,0 +1,10 @@
+- rule: Drop and execute binary
+  desc: Detects a container trying to execute a binary that was not present in the container image
+  condition: >
+    spawn_process
+    and container
+    and proc.is_exe_upper_layer=true
+    and not container.image.repository in (known_drop_and_execute_containers)
+    and not know_drop_and_execute_activities
+  output: "Executing binary not part of base image (proc_exe=%proc.exe proc_sname=%proc.sname)"
+  priority: CRITICAL

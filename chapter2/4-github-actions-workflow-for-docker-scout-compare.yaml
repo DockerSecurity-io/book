@@ -1,0 +1,7 @@
+      - name: Run Docker Scout to compare vulnerabilities with the latest image
+        uses: docker/scout-action@v1
+        with:
+          command: compare
+          image: '${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}'
+          to-latest: true
+          github-token: '${{ github.token }}'

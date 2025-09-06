@@ -1,0 +1,7 @@
+apiVersion: abac.authorization.k8s.io/v1
+kind: Policy
+spec:
+  user: alice
+  namespace: default
+  resource: pods
+  verb: create

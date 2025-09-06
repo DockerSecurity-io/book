@@ -1,0 +1,21 @@
+default:
+  image: docker:stable
+  services:
+    - docker:dind
+  before_script:
+    - docker info
+
+variables:
+  DOCKER_TLS_CERTDIR: "/certs"
+
+build:
+  stage: build
+  script:
+    - docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME .
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
+  
+test:
+  stage: test
+  needs: [build]
+  script:
+    - docker run $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME /bin/sh -c "run-tests.sh"
